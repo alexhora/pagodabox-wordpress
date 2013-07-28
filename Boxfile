@@ -1,15 +1,10 @@
 web1: 
-  name: wordpress-web1
-  php_display_errors: "0"
+  name: wordpress
   document_root: wordpress/
-  shared_writable_dirs: wordpress/wp-content/
-  after_build:
-    - "cp -rv wp-default/. wordpress/"
-    - "cp -rv wordpress/wp-content/ wp-default/"
-  before_deploy:
-    - "cp -rv wp-default/wp-content/. wordpress/wp-content/"
+  php_version: 5.4.14
   php_extensions:
     - mysql
+    - mysqli
     - gd
     - mbstring
     - exif
@@ -17,7 +12,37 @@ web1:
     - mcrypt
     - zip
     - curl
-
+    - eaccelerator
+    - memcache
+    - memcached
+    - simplexml
+    - hash
+    - fileinfo
+    - ftp
+    - http
+    - imap
+    - json
+    - session
+    - sockets
+    - ssh2
+  php_error_reporting: 30719
+  php_display_errors: "0"
+  static_expire: 604800
+  php_post_max_size: "200M"
+  php_upload_max_filesize: "200M"
+  php_max_execution_time: 300
+  php_max_input_time: 300
+  shared_writable_dirs:
+    - wordpress/wp-content/
+    - wordpress/
+  before_deploy:
+    - "cp -rv wp-default/wp-content/. wordpress/wp-content/"
+  after_build:
+    - "cp -rv wp-default/. wordpress/"
+    - "cp -rv wordpress/wp-content/ wp-default/"
 db1:
-  name: wordpress-db1
+  name: wpdb
   type: mysql
+cache1:
+  name: wpcache
+  type: memcached
