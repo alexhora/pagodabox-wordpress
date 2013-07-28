@@ -34,7 +34,6 @@ web1:
   php_max_input_time: 300
   shared_writable_dirs:
     - wordpress/wp-content/
-    - wordpress/
   before_deploy:
     - "cp -rv wp-default/wp-content/. wordpress/wp-content/"
   after_build:
